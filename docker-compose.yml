@@ -1,0 +1,14 @@
+version: '3'
+services:
+  meusite:
+    build:
+      context: .
+      dockerfile: ./dockers/meusite/Dockerfile
+    # command: uwsgi --chdir=/source --module=meusite.wsgi:application --env DJANGO_SETTINGS_MODULE=meusite.settings --master --pidfile=/tmp/project-master.pid --socket=127.0.0.1:8001 --processes=4 --threads 1 --uid=82 --gid=82 --harakiri=240 --max-requests=1000 --vacuum --enable-threads --reload-on-rss=256 --evil-reload-on-rss=1024 --thunder-lock --http :8000
+    command: python manage.py runserver 0.0.0.0:8140
+    volumes:
+      - ./source:/source
+     
+    ports:
+      - "${MYPORT}:8000"
+
